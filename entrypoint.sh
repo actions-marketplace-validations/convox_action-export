@@ -1,4 +1,5 @@
-export CONVOX_RACK=$INPUT_RACK
+#!/bin/sh -l
 
 echo "Running command on the application."
-convox resources export $INPUT_RESOURCEd -a $INPUT_APP -r $INPUT_RACK > "log-`date '+%Y-%m-%d-%H-%M-%S'`.sql"
+
+convox resources export $INPUT_RESOURCE --app $INPUT_APP --rack $INPUT_RACK > $INPUT_FILENAME

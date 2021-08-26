@@ -1,15 +1,15 @@
 # Convox Exec Action
-This Action runs a [One-off Command](https://docs.convox.com/management/one-off-commands) in a running process. A typical use case of this action would be to run migrations or a similar pre-deploy or post-deploy command.
+This Action runs the [export Command](https://docs.convox.com/reference/cli/resources#resources-export) in a specific resource and creates a file with the output. The file created can be read and managed by any post action.
 
 ## Inputs
 ### `rack`
 **Required** The name of the [Convox Rack](https://docs.convox.com/introduction/rack) containing the app you wish to run the command against
 ### `app`
 **Required** The name of the [app](https://docs.convox.com/deployment/creating-an-application) you wish to run the command against
-### `service`
-**Required** The name of the [service](https://docs.convox.com/application/services) to run the command against
-### `command`
-**Required** The command you wish to run
+### `resource`
+**Required** The name of the [resource](https://docs.convox.com/reference/cli/resources) to run the command against
+### `filename`
+**Required** The name of the file that will be created with the output of the export
 
 ## Example usage
 ```
@@ -20,26 +20,14 @@ steps:
   with:
     password: ${{ secrets.CONVOX_DEPLOY_KEY }}
 
-- name: build
-  id: build
-  uses: convox/action-build@v1
+- name: Export database
+  uses: convox/action-export@v1
   with:
     rack: staging
     app: myapp
+    resource: database
+    filename: my-file.sql
 
-- name: migrate
-  id: migrate
-  uses: convox/action-exec@v1
-  with:
-    rack: staging
-    app: myapp
-    service: web
-    command: 'rails db:migrate'
-
-- name: promote
-  id: promote
-  uses: convox/action-promote@v1
-  with:
-    rack: staging
-    app: myapp
+- name: Read export output
+  run: cat my-file.sql
 ```

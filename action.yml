@@ -1,4 +1,4 @@
-name: Convox Exec
+name: Convox Export
 description: Run a command
 author: Convox
 inputs:
@@ -8,12 +8,13 @@ inputs:
   app:
     description: Convox app name
     required: true
-  service:
-    description: The service to run the command against
+  resource:
+    description: The resource to run the export command against
     required: true
-  command:
-    description: The command to be run
+  filename:
+    description: The name of the output file
     required: true
+
 runs:
   using: docker
   image: Dockerfile
