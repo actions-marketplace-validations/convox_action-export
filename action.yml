@@ -1,5 +1,5 @@
 name: Convox Export
-description: Run a command
+description: Export a resource to a file
 author: Convox
 branding:
   icon: download

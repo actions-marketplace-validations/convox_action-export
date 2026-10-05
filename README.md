@@ -31,3 +31,6 @@ steps:
 - name: Read export output
   run: cat my-file.sql
 ```
+
+## Convox CLI version
+This action installs the latest Convox CLI release when its image is built, so the action's version tag does not pin the CLI. On GitHub-hosted runners that happens on every run. On a self-hosted runner with a persistent Docker daemon, the CLI stays at the version cached in that daemon until its build cache is pruned.
